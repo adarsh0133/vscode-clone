@@ -26,5 +26,5 @@ A simple project to create a VS Code-like application using Node.js and Express.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/adarsh0133
+   git clone https://github.com/adarsh0133/vscode-clone
    ```
