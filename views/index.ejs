@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../stylesheets/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="main">
+    <div id="popup">
+      <div id="popupcard">
+        <h2>Rename <i id="popupClose" class="ri-close-fill"></i></h2>
+        <hr>
+        <form action="" method="post">
+          <input type="text" name="newName" id="inp">
+          <input type="submit" value="save name" id="renamebtn">
+        </form>
+      </div>
+    </div>
+    <div id="left">
+      <div id="left-top">
+        <h3>foldername</h3>
+        <div id="icons">
+          <i id="fileicon" class="ri-file-add-fill"></i>
+          <i id="foldericon" class="ri-folder-add-fill"></i>
+          <a href="/refresh"><i class="ri-restart-line"></i></a>
+        </div>
+      </div>
+      <div id="left-btm">
+        <div id="elem">
+          <form id="file" action="/createfile" method="post">
+            <input type="text" name="filename" placeholder="filename">
+          </form>
+          <form id="folder" action="/createfolder" method="post">
+            <input type="text" name="foldername" placeholder="foldername">
+          </form>
+        </div>
+        <% files.forEach(function(el){ %>
+          <div class="elem-wrapper">
+            <div class="elem-left">
+              <% if(el.isDirectory()){ %>
+                <div class="e">
+                  <i class="ri-folder-line"></i>
+                  <h4>
+                    <%= el.name %>
+                  </h4>
+                </div>
+                <% } else{ %>
+                  <div class="e">
+                    <i class="ri-file-3-line"></i>
+                    <a href="/file/<%= el.name %>"><h4><%= el.name %></h4></a>
+                  </div>
+                  <% } %>
+            </div>
+            <% if(el.isDirectory()){ %>
+              <div class="elem-right">
+                <i id="edit" class="ri-pencil-fill"></i>
+                <a href="/delete/folder/<%= el.name %>"><i class="ri-delete-bin-7-fill"></i></a>
+              </div>
+              <% } else{ %>
+                <div class="elem-right">
+                  <i id="edit" class="ri-pencil-fill"></i>
+                  <a href="/delete/file/<%= el.name %>"><i class="ri-delete-bin-7-fill"></i></a>
+                </div>
+                <% } %>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+    <div id="right">
+      <small>no_files</small>
+    </div>
+    <script>
+
+      var popup = document.querySelector("#popup");
+
+      document.querySelector("#popupClose").addEventListener("click",()=>{
+        popup.style.display = "none";
+      })
+
+      document.querySelector("#left-btm").addEventListener("click",(dets)=>{
+        if(dets.target.id === "edit"){
+          document.querySelector("#inp").value = dets.srcElement.parentElement.parentElement.textContent.trim();
+          popup.style.display = "flex";
+          var oldname = dets.srcElement.parentElement.parentElement.textContent.trim();
+          document.querySelector("#popupcard form").setAttribute("action",`/rename/${oldname}`);
+        }
+      })
+
+      function displayOff() {
+        document.querySelectorAll("#elem form").forEach(function (dts) {
+          dts.style.display = "none";
+        })
+      }
+
+      document.querySelector("#fileicon").addEventListener("click", function () {
+        displayOff();
+        document.querySelector("#file").style.display = "initial";
+      })
+
+      document.querySelector("#foldericon").addEventListener("click", function () {
+        displayOff();
+        document.querySelector("#folder").style.display = "initial"
+      })
+    </script>
+</body>
+
+</html>
