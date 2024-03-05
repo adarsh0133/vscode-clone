@@ -7,16 +7,21 @@ A simple project to create a VS Code-like application using Node.js and Express.
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
-- [License](#license)
 
 ## Installation
+
+- npm install
+
+## usage
+
+- its almost same like vscode 
 
 ## features
 
 - File System Operations: Perform basic file system operations like creating, deleting, reading, and writing files and folders.
 
 - VS Code-like Interface: Mimics the look and feel of Visual Studio Code for a familiar user experience.
-Routing: Utilizes Express routing to handle different actions within the application.
+  Routing: Utilizes Express routing to handle different actions within the application.
 
 1. Clone the repository:
 
